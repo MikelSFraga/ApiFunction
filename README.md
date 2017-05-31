@@ -1,4 +1,4 @@
-ApiFunction Class V1.0
+ApiFunction Class V1.0.0
 
 Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.
 
@@ -6,7 +6,7 @@ Seu objetivo é unificar as rotinas, que utiliza as API´s dos Windows, que torn
 
 Esta classe também atenderá as diferentes Arquiteturas do Sistema Operacional Windows (32 bits e 64 bits), como também as Arquiteturas do Pacote Microsoft Office (VBA6 e VBA7). e de  Criação de uma Classe em VBA em múltipla Arquitetura (32 bits e 64 bits).
 
-Na atual versão do ApiFunction (v1.0), as funções já fazem uso das seguintes rotinas:
+Na atual versão do ApiFunction (v1.0.0), as funções já fazem uso das seguintes rotinas:
 
 - FindWindow			(user32.dll)
 	- The FindWindow function retrieves the handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows.

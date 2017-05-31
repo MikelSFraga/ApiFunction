@@ -70,12 +70,13 @@ Private Const GWL_STYLE As Long = (-16)
 '=========================================================================================
 ' DECLARAÇÃO DE VARIÁVEIS/PROPRIEDADES PRIVADAS DA CLASSE.
 'Declare Controls
-'  Private aForm As MSForms.UserForm
+  Private aForm As Object
 'Declare UDV (User Definition Variable)
   Private aWndStyle As WindowStyles
   Private aCmdSWnd As ShowWindowCommands
 'Declare Validate
   Private aClassName As String
+  Private aCaption As String
 'Declare API Values
   Private aHWndForm As Long
   Private aIStyle As Long
@@ -83,45 +84,46 @@ Private Const GWL_STYLE As Long = (-16)
 
 '=========================================================================================
 ' DECLARAÇÃO DE VARIÁVEIS/PROPRIEDADES PUBLICAS DA CLASSE.
-'Public Property Set FormStart(ByVal pForm As MSForms.UserForm): Set aForm = pForm: End Property
+Public Property Set FormStart(ByVal pForm As Object)
+Set aForm = pForm: aCaption = aForm.Caption: End Property
 
 '=========================================================================================
 
 '=========================================================================================
 ' DECLARAÇÃO DOS MÉTODOS PUBLICOS DA CLASSE.
-Public Sub RemoveTitleBar(ByVal pCaption As String)
-  Call ApplyStyle(notNullUserform, pCaption, smTitleBar)            'Aplica o estilo com a classe do Userform.
+Public Sub RemoveTitleBar()
+  Call ApplyStyle(notNullUserform, aCaption, smTitleBar)            'Aplica o estilo com a classe do Userform.
 End Sub
-Public Sub HideCloseButton(ByVal pCaption As String)
-  Call ApplyStyle(NullUserform, pCaption, smCloseButton)            'Aplica o estilo com a classe nula.
+Public Sub HideCloseButton()
+  Call ApplyStyle(NullUserform, aCaption, smCloseButton)            'Aplica o estilo com a classe nula.
 End Sub
-Public Sub ActivateButtons(ByVal pCaption As String, ByVal pWndStyle As WindowStyles)
-  Call ApplyStyle(notNullUserform, pCaption, smMinimize, pWndStyle) 'Aplica o estilo com a classe do Userform.
+Public Sub ActivateButtons(ByVal pWndStyle As WindowStyles)
+  Call ApplyStyle(notNullUserform, aCaption, smMinimize, pWndStyle) 'Aplica o estilo com a classe do Userform.
 End Sub
-Public Sub ActivateMinimizeOnly(ByVal pCaption As String)
+Public Sub ActivateMinimizeOnly()
   aWndStyle = WS_MINIMIZEBOX                                        'Define o estilo do botão que esta sendo usado.
-  Call ApplyStyle(notNullUserform, pCaption, smMinimize)            'Aplica o estilo com a classe do Userform.
+  Call ApplyStyle(notNullUserform, aCaption, smMinimize)            'Aplica o estilo com a classe do Userform.
 End Sub
-Public Sub ActivateMaximizeOnly(ByVal pCaption As String)
+Public Sub ActivateMaximizeOnly()
   aWndStyle = WS_MAXIMIZEBOX                                        'Define o estilo do botão que esta sendo usado.
-  Call ApplyStyle(notNullUserform, pCaption, smMaximize)            'Aplica o estilo com a classe do Userform.
+  Call ApplyStyle(notNullUserform, aCaption, smMaximize)            'Aplica o estilo com a classe do Userform.
 End Sub
-Public Sub ActivateDualButtons(ByVal pCaption As String)
+Public Sub ActivateDualButtons()
   aWndStyle = WS_FULLSIZING                                         'Define o estilo do botão que esta sendo usado.
-  Call ApplyStyle(notNullUserform, pCaption, smFullScreen)          'Aplica o estilo fullscreen para o Userform.
+  Call ApplyStyle(notNullUserform, aCaption, smFullScreen)          'Aplica o estilo fullscreen para o Userform.
 End Sub
-Public Sub FormWindowState(ByVal pCaption As String, ByVal pSwWndCmd As ShowWindowCommands)
+Public Sub WindowFormState(ByVal pSwWndCmd As ShowWindowCommands)
   aClassName = SetClassName(notNullUserform)                        'Captura a ClassName, baseada na versão do Office.
-  aHWndForm = SetHandleWindow(aClassName, pCaption)                 'Define o valor para a variável aHWndForm.
+  aHWndForm = SetHandleWindow(aClassName, aCaption)                 'Define o valor para a variável aHWndForm.
   ShowWindow aHWndForm, pSwWndCmd
 End Sub
-Public Sub WindowFocusForm(ByVal pCaption As String)
+Public Sub WindowFormFocus()
   aClassName = SetClassName(notNullUserform)                        'Captura a ClassName, baseada na versão do Office.
-  aHWndForm = SetHandleWindow(aClassName, pCaption)            'Define o valor para a variável aHWndForm.
+  aHWndForm = SetHandleWindow(aClassName, aCaption)                 'Define o valor para a variável aHWndForm.
   SetFocus aHWndForm
 End Sub
-Public Sub WindowShowTaskBar(ByVal pCaption As String)
-  Call TaskBarWindow(notNullUserform, pCaption)                     'Aplica o estilo fullscreen para o Userform.
+Public Sub WindowFormShowTaskBar()
+  Call TaskBarWindow(notNullUserform, aCaption)                     'Aplica o estilo fullscreen para o Userform.
 End Sub
 '=========================================================================================
 
