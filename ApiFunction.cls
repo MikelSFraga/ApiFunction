@@ -12,24 +12,27 @@ Option Explicit
 ' DECLARAÇÃO DAS FUNÇÕES DAS API´S DO WINDOWS PARA A CLASSE.
 #If VBA7 Then         ' Avalia as versões do Office 2010+
   #If Win64 Then      ' Arquitetura 64 Bits do Office
-    Private Declare PtrSafe Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As LongLong
-    Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long) As LongLong
-    Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As LongLong
-    Private Declare PtrSafe Function ShowWindow Lib "user32" (ByVal hwnd As LongLong, ByVal nCmdShow As LongLong) As LongLong
-    Private Declare PtrSafe Function SetFocus Lib "user32" (ByVal hwnd As LongLong) As LongLong
+    Private Declare PtrSafe Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Longlong
+    Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Longlong
+    Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Longlong
+    Private Declare PtrSafe Function ShowWindow Lib "user32" (ByVal hWnd As Longlong, ByVal nCmdShow As Longlong) As Longlong
+    Private Declare PtrSafe Function SetFocus Lib "user32" (ByVal hWnd As Longlong) As Longlong
+    Private Declare PtrSafe Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Longlong
   #ElseIf Win32 Then  ' Arquitetura 32 Bits do Office
     Private Declare PtrSafe Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
-    Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long) As Long
-    Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
-    Private Declare PtrSafe Function ShowWindow Lib "user32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
-    Private Declare PtrSafe Function SetFocus Lib "user32" (ByVal hwnd As Long) As Long
+    Private Declare PtrSafe Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
+    Private Declare PtrSafe Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+    Private Declare PtrSafe Function ShowWindow Lib "user32" (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
+    Private Declare PtrSafe Function SetFocus Lib "user32" (ByVal hWnd As Long) As Long
+    Private Declare PtrSafe Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
   #End If
 #ElseIf VBA6 Then     ' Avalia as versões do Office 2007-
   Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
-  Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long) As Long
-  Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
-  Private Declare Function ShowWindow Lib "user32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
-  Private Declare Function SetFocus Lib "user32" (ByVal hwnd As Long) As Long
+  Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
+  Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+  Private Declare Function ShowWindow Lib "user32" (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
+  Private Declare Function SetFocus Lib "user32" (ByVal hWnd As Long) As Long
+  Private Declare Function DrawMenuBar Lib "user32" (ByVal hWnd As Long) As Long
 #End If
 '=========================================================================================
 
@@ -39,6 +42,15 @@ Enum WindowStyles
   WS_MINIMIZEBOX = &H20000
   WS_MAXIMIZEBOX = &H10000
   WS_FULLSIZING = &H70000
+End Enum
+Enum ExWindowStyles
+  WS_EX_DLGMODALFRAME = &H1
+  WS_EX_APPWINDOW = &H40000
+  WS_EX_WINAPPMODAL = (Not WS_EX_DLGMODALFRAME Or WS_EX_APPWINDOW)
+End Enum
+Enum GetWindowLong
+  GWL_STYLE = (-16)
+  GWL_EXSTYLE = (-20)
 End Enum
 Enum ShowWindowCommands
   SW_SHOWMAXIMIZED = 3
@@ -59,12 +71,12 @@ Enum StyleMode
   smMinimize = 3
   smMaximize = 4
   smDualMButton = 5
+  smAppModal = 6
 End Enum
 '=========================================================================================
 
 '=========================================================================================
 ' DECLARAÇÃO DE VARIÁVEIS CONSTANTES DA CLASSE.
-Private Const GWL_STYLE As Long = (-16)
 '=========================================================================================
 
 '=========================================================================================
@@ -74,6 +86,7 @@ Private Const GWL_STYLE As Long = (-16)
 'Declare UDV (User Definition Variable)
   Private aWndStyle As WindowStyles
   Private aCmdSWnd As ShowWindowCommands
+  Private aGetWin As GetWindowLong
 'Declare Validate
   Private aClassName As String
   Private aCaption As String
@@ -94,53 +107,82 @@ End Property
 '=========================================================================================
 ' DECLARAÇÃO DOS MÉTODOS PUBLICOS DA CLASSE.
 Public Sub RemoveTitleBar()
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(notNullUserform, aCaption, smTitleBar)                    'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smTitleBar, GWL_STYLE)
 End Sub
 Public Sub HideCloseButton()
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(NullUserform, aCaption, smCloseButton)                    'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(NullUserform, aCaption, smCloseButton, GWL_STYLE)
 End Sub
 Public Sub ActivateButtons(ByVal pWndStyle As WindowStyles)
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, pWndStyle)      'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, GWL_STYLE, pWndStyle)
 End Sub
 Public Sub ActivateDualButtons()
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, WS_FULLSIZING)  'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, GWL_STYLE, WS_FULLSIZING)
 End Sub
 Public Sub ActivateMaximizeOnly()
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(notNullUserform, aCaption, smMaximize, WS_MAXIMIZEBOX)    'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smMaximize, GWL_STYLE, WS_MAXIMIZEBOX)
 End Sub
 Public Sub ActivateMinimizeOnly()
-  If Not aTitleBarEnable Then Exit Sub                                          'Testa se o atributo TitleBarEnable é True.
-  Call SetWindowStyle(notNullUserform, aCaption, smMinimize, WS_MINIMIZEBOX)    'Aribui o estilo definido no método, para a janela selecionada.
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Sub
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smMinimize, GWL_STYLE, WS_MINIMIZEBOX)
 End Sub
 
 Public Sub ShowWindowForm(Optional ByVal pSetFocus As Boolean = False, _
                           Optional ByVal pSetFullScreen As Boolean = False, _
                           Optional ByVal pSetTaskBar As Boolean = False)
-  If pSetFocus Then Call SetWindowShow(notNullUserform, aCaption)
-  If pSetFullScreen And Not pSetTaskBar Then Call SetWindowShow(notNullUserform, aCaption, SW_SHOWMAXIMIZED)
-  If Not pSetFullScreen And pSetTaskBar Then Call SetWindowShow(notNullUserform, aCaption, SW_SHOWTASKBAR)
+  aClassName = SetClassName(notNullUserform)                             'Teste
+  aHWndForm = SetHandleWindow(aClassName, aCaption)             'Teste
+  If pSetFocus Then SetFocus aHWndForm 'Call SetWindowShow(notNullUserform, aCaption, smAppModal, GWL_EXSTYLE)
+  aGetWin = GWL_EXSTYLE: aIStyle = SetStyle(smAppModal, aGetWin, , WS_EX_APPWINDOW) 'Teste
+  SetWindowLong aHWndForm, aGetWin, aIStyle                     'Teste
+  If pSetFullScreen Then: aCmdSWnd = SW_SHOWMAXIMIZED: ShowWindow aHWndForm, aCmdSWnd
+    'Call SetWindowShow(notNullUserform, aCaption, SW_SHOWMAXIMIZED)
+    
+  If pSetTaskBar Then: aCmdSWnd = SW_SHOWTASKBAR: ShowWindow aHWndForm, aCmdSWnd
+    'Call SetWindowShow(notNullUserform, aCaption, SW_SHOWTASKBAR)
+    
+  'End If
+  'DrawMenuBar aHWndForm
 End Sub
 '=========================================================================================
 
 '=========================================================================================
 ' DECLARAÇÃO DOS MÉTODOS PRIVADOS DA CLASSE.
 Private Sub SetWindowStyle(ByVal pClass As ClassName, ByVal pCaption As String, _
-            ByVal pStyle As StyleMode, Optional ByVal pWndStyle As WindowStyles = 0)
+            ByVal pStyle As StyleMode, ByVal pGetWin As GetWindowLong, _
+            Optional ByVal pWndStyle As WindowStyles = 0)
   aClassName = SetClassName(pClass)
   aHWndForm = SetHandleWindow(aClassName, pCaption)
-  If pWndStyle = 0 Then aIStyle = SetStyle(pStyle) Else aIStyle = SetStyle(pStyle, pWndStyle)
-  SetWindowLong aHWndForm, GWL_STYLE, aIStyle
+  If pWndStyle = 0 Then aIStyle = SetStyle(pStyle, pGetWin) _
+                   Else aIStyle = SetStyle(pStyle, pGetWin, pWndStyle)
+  SetWindowLong aHWndForm, pGetWin, aIStyle
 End Sub
 Private Sub SetWindowShow(ByVal pClass As ClassName, ByVal pCaption As String, _
-            Optional ByVal pCmdSWnd As ShowWindowCommands = 0) '??? Confirmar valor = 0.
+                          ByVal pStyle As StyleMode, ByVal pGetWin As GetWindowLong, _
+                          Optional ByVal pExWndStyle As ExWindowStyles, _
+                          Optional ByVal pCmdSWnd As ShowWindowCommands = -1)
   aClassName = SetClassName(pClass)
   aHWndForm = SetHandleWindow(aClassName, pCaption)
-  If pCmdSWnd = 0 Then SetFocus aHWndForm Else ShowWindow aHWndForm, pCmdSWnd
+  If pCmdSWnd = -1 Then SetFocus aHWndForm: Exit Sub
+  aIStyle = SetStyle(pStyle, pGetWin, , pExWndStyle)
+  SetWindowLong aHWndForm, pGetWin, aIStyle
+  ShowWindow aHWndForm, pCmdSWnd
 End Sub
 Private Function SetClassName(ByVal pClass As ClassName) As String
   Select Case pClass
@@ -152,11 +194,14 @@ End Function
 Private Function SetHandleWindow(ByVal pClass As String, ByVal pCaptionWindow As String) As Long
   SetHandleWindow = FindWindow(pClass, pCaptionWindow)
 End Function
-Private Function SetStyle(ByVal pStyle As StyleMode, Optional pWndStyle As WindowStyles) As Long
+Private Function SetStyle(ByVal pStyle As StyleMode, ByVal pGetWin As GetWindowLong, _
+                          Optional pWndStyle As WindowStyles, _
+                          Optional pExWndStyle As ExWindowStyles) As Long
   Select Case pStyle
-    Case 1: SetStyle = GetWindowLong(aHWndForm, GWL_STYLE) And &HFFF7FFFF
-    Case 2: SetStyle = GetWindowLong(aHWndForm, GWL_STYLE) And Not &HC00000
-    Case 3, 4, 5: SetStyle = GetWindowLong(aHWndForm, GWL_STYLE) Or pWndStyle
+    Case 1: SetStyle = GetWindowLong(aHWndForm, pGetWin) And &HFFF7FFFF
+    Case 2: SetStyle = GetWindowLong(aHWndForm, pGetWin) And Not &HC00000
+    Case 3, 4, 5: SetStyle = GetWindowLong(aHWndForm, pGetWin) Or pWndStyle
+    Case 6: SetStyle = GetWindowLong(aHWndForm, pGetWin) And Not WS_EX_DLGMODALFRAME Or WS_EX_APPWINDOW 'Or pExWndStyle
   End Select
 End Function
 '=========================================================================================
