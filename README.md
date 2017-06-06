@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
+<head></head>
 <body>
 <h1>ApiFunction Class V1.0.0</h1>
 
-Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.
+<p>Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.</p>
 
 Seu objetivo é unificar as rotinas, que utiliza as API´s dos Windows, que tornam possível realizar alterações na estrutura dos Formulários (Userform), que são criados e manipulados pelo Visual Basic for Application (VBA). 
 
