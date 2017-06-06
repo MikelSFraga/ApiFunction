@@ -46,7 +46,6 @@ End Enum
 Enum ExWindowStyles
   WS_EX_DLGMODALFRAME = &H1
   WS_EX_APPWINDOW = &H40000
-  WS_EX_WINAPPMODAL = (Not WS_EX_DLGMODALFRAME Or WS_EX_APPWINDOW)
 End Enum
 Enum GetWindowLong
   GWL_STYLE = (-16)
@@ -142,23 +141,9 @@ Public Sub ActivateMinimizeOnly()
   'Aribui o estilo definido no método, para a janela selecionada.
   Call SetWindowStyle(notNullUserform, aCaption, smMinimize, GWL_STYLE, WS_MINIMIZEBOX)
 End Sub
-
-Public Sub ShowWindowForm(Optional ByVal pSetFocus As Boolean = False, _
-                          Optional ByVal pSetFullScreen As Boolean = False, _
-                          Optional ByVal pSetTaskBar As Boolean = False)
-  aClassName = SetClassName(notNullUserform)                             'Teste
-  aHWndForm = SetHandleWindow(aClassName, aCaption)             'Teste
-  If pSetFocus Then SetFocus aHWndForm 'Call SetWindowShow(notNullUserform, aCaption, smAppModal, GWL_EXSTYLE)
-  aGetWin = GWL_EXSTYLE: aIStyle = SetStyle(smAppModal, aGetWin, , WS_EX_APPWINDOW) 'Teste
-  SetWindowLong aHWndForm, aGetWin, aIStyle                     'Teste
-  If pSetFullScreen Then: aCmdSWnd = SW_SHOWMAXIMIZED: ShowWindow aHWndForm, aCmdSWnd
-    'Call SetWindowShow(notNullUserform, aCaption, SW_SHOWMAXIMIZED)
-    
-  If pSetTaskBar Then: aCmdSWnd = SW_SHOWTASKBAR: ShowWindow aHWndForm, aCmdSWnd
-    'Call SetWindowShow(notNullUserform, aCaption, SW_SHOWTASKBAR)
-    
-  'End If
-  'DrawMenuBar aHWndForm
+Public Sub ShowFormTaskBar()
+  'Exibe a janela/Userform na Barra de Tarefas do Windows.
+  Call SetWindowShow(notNullUserform, aCaption, SW_SHOWTASKBAR)
 End Sub
 '=========================================================================================
 
@@ -174,15 +159,12 @@ Private Sub SetWindowStyle(ByVal pClass As ClassName, ByVal pCaption As String, 
   SetWindowLong aHWndForm, pGetWin, aIStyle
 End Sub
 Private Sub SetWindowShow(ByVal pClass As ClassName, ByVal pCaption As String, _
-                          ByVal pStyle As StyleMode, ByVal pGetWin As GetWindowLong, _
-                          Optional ByVal pExWndStyle As ExWindowStyles, _
                           Optional ByVal pCmdSWnd As ShowWindowCommands = -1)
   aClassName = SetClassName(pClass)
   aHWndForm = SetHandleWindow(aClassName, pCaption)
-  If pCmdSWnd = -1 Then SetFocus aHWndForm: Exit Sub
-  aIStyle = SetStyle(pStyle, pGetWin, , pExWndStyle)
-  SetWindowLong aHWndForm, pGetWin, aIStyle
   ShowWindow aHWndForm, pCmdSWnd
+  DrawMenuBar aHWndForm
+  SetFocus aHWndForm
 End Sub
 Private Function SetClassName(ByVal pClass As ClassName) As String
   Select Case pClass
