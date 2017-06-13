@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
-<h1>ApiFunction Class V1.0.0</h1>
+ApiFunction Class V1.0.0
 
-<p>Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.</p>
+Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.
 
 Seu objetivo é unificar as rotinas, que utiliza as API´s dos Windows, que tornam possível realizar alterações na estrutura dos Formulários (Userform), que são criados e manipulados pelo Visual Basic for Application (VBA). 
 
@@ -26,13 +22,6 @@ Na atual versão do ApiFunction (v1.0.0), as funções já fazem uso das seguint
 
  - SetFocus				(user32.dll)
  	- The SetFocus function sets the keyboard focus to the specified window. The window must be associated with the calling thread’s message queue.
- - DrawMenuBar			(user32.dll)
-    - The DrawMenuBar function redraws the menu bar of the specified window. If the menu bar changes after Windows has created the window, this function must be called to draw the changed menu bar.
+
 
  Através das APIs acima mencionadas, foi possível desenvolver algumas funções, que irão funcionar como um framework, para realizar alterações na estrutura física do Formulário (Userform).
- 
-</body>
-</html>
-
-
-
