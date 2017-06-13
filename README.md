@@ -1,18 +1,29 @@
-ApiFunction Class V1.0.0
+<html>
+<head>
+	
+</head>
+<body>
+	<h1>ApiFunction Class V1.0.0</h1>
 
-Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o trabalho de criação desta classe.
+	<hr/>
+	
+	<p>Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em VBA do pacote Microsoft Office, iniciou-se o desenvolvimeno desta classe.</p>
 
-Seu objetivo é unificar as rotinas, que utiliza as API´s dos Windows, que tornam possível realizar alterações na estrutura dos Formulários (Userform), que são criados e manipulados pelo Visual Basic for Application (VBA). 
+	<p>Seu objetivo é a unificação de várias rotinas que utilizam as Funções dos Windows (API´s), através das quais é possível realizar alterações na estrutura dos Formulários (Userform´s) que utilizamos na estrutura do Visual Basic for Application (VBA).</p>
 
-Esta classe também atenderá as diferentes Arquiteturas do Sistema Operacional Windows (32 bits e 64 bits), como também as Arquiteturas do Pacote Microsoft Office (VBA6 e VBA7). e de  Criação de uma Classe em VBA em múltipla Arquitetura (32 bits e 64 bits).
+	<p>Esta classe atenderá as diferentes Arquiteturas do Sistema Operacional Windows (32 bits e 64 bits), como também as Arquiteturas do Pacote Microsoft Office (VBA6 e VBA7).</p>
 
-Na atual versão do ApiFunction (v1.0.0), as funções já fazem uso das seguintes rotinas:
+	<p>Nesta versão atual do ApiFunction (v1.0.0), são utilizadas as seguintes Funções/Api´s do Windows:</p>
 
-- FindWindow			(user32.dll)
-	- The FindWindow function retrieves the handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows.
+	<ol><li>FindWindow			(user32.dll)</li>
+	<ol><li>The FindWindow function retrieves the handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows.</li></ol></ol>
 
-- GetWindowLong			(user32.dll)
-	- The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory of a window.
+	<ol><li>GetWindowLong			(user32.dll)</li>
+	<ol><li>The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory of a window.</li></ol></ol>
+
+
+</body>
+</html>
 
  - SetWindowLong		(user32.dll)
  	- The SetWindowLong function changes an attribute of the specified window. The function also sets a 32-bit (long) value at the specified offset into the extra window memory of a window.
