@@ -41,29 +41,69 @@ Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ 
 ##### FormStart
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+End Sub
 ```
 
 ##### ActivateButtons
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Chama a propriedade que irá ativar os botões Minimizar 
+  ' e Maximizar os botões na estrutura do Userform.
+  objApi.ActivateButtons = WS_FULLSIZING
+End Sub
 ```
 
 ##### IconTitleBarForm
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Passa para a propriedade a localização da imagem
+  ' que será inserida na Barra de título do Userform.
+  objApi.IconTitleBarForm = ThisWorkbook.Path & "\xyz.ico"
+End Sub
 ```
 
 ##### OpacityPercent
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Define o percentual de opacidade para Userform.
+  objApi.OpacityPercent = 60
+End Sub
 ```
 
 #### Métodos
@@ -71,56 +111,125 @@ Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ 
 ##### RemoveTitleBar
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Remove a Barra de Título do Userform.
+  objApi.RemoveTitleBar
+End Sub
 ```
 
 ##### HideCloseButton
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Esconde o botão Fechar (X) do Userform.
+  objApi.HideCloseButton
+End Sub
 ```
 
 ##### ActivateDualButtons
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Ativa os botões de Minimizar e Maximizar do
+  ' Userform, como na Propriedade ActivateButtons.
+  objApi.ActivateDualButtons
+End Sub
 ```
 
 
 ##### ActivateMaximizeOnly
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Ativa somente o botão de Maximizar do
+  ' Userform, como na Propriedade ActivateButtons.
+  objApi.ActivateMaximizeOnly
+End Sub
 ```
 
 
 ##### ActivateMinimizeOnly
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Ativa somente o botão de Minimizar do
+  ' Userform, como na Propriedade ActivateButtons.
+  objApi.ActivateMinimizeOnly
+End Sub
 ```
 
 
 ##### ShowFormTaskBar
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Ativa o Userform na Barra de Tarefas do Window.
+  objApi.ShowFormTaskBar
+End Sub
 ```
 
 
 ##### ParentForms
 
 
+__Exemplo:__
 ```vb
+Option Explicit
 
+Private Sub UserForm_Initialize()
+  ' Declaração do objeto da classe.
+  Dim objApi As New ApiFunction
+  ' Define o Userform para sub-objeto da classe.
+  Set objApi.FormStart = UserForm1
+  ' Define relação enre dos Userforms.
+  objApi.ParentForms UserForm2.Caption, UserForm1.Caption
+End Sub
 ```
-
-
-
-
