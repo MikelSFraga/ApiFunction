@@ -107,6 +107,12 @@ End Enum
 
 '=========================================================================================
 ' DECLARAÇÃO DE VARIÁVEIS/PROPRIEDADES PUBLICAS DA CLASSE.
+Public Property Let ActivateButtons(ByVal pWndStyle As WindowStyles)
+  'Testa se o atributo TitleBarEnable é True.
+  If Not aTitleBarEnable Then Exit Property
+  'Aribui o estilo definido no método, para a janela selecionada.
+  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, GWL_STYLE, pWndStyle)
+End Property
 Public Property Set FormStart(ByVal pForm As Object)
   'Inicia o objeto aForm e captura o seu Caption.
   Set aForm = pForm: aCaption = aForm.Caption
@@ -141,12 +147,6 @@ Public Sub HideCloseButton()
   If Not aTitleBarEnable Then Exit Sub
   'Aribui o estilo definido no método, para a janela selecionada.
   Call SetWindowStyle(NullUserform, aCaption, smCloseButton, GWL_STYLE)
-End Sub
-Public Sub ActivateButtons(ByVal pWndStyle As WindowStyles)
-  'Testa se o atributo TitleBarEnable é True.
-  If Not aTitleBarEnable Then Exit Sub
-  'Aribui o estilo definido no método, para a janela selecionada.
-  Call SetWindowStyle(notNullUserform, aCaption, smDualMButton, GWL_STYLE, pWndStyle)
 End Sub
 Public Sub ActivateDualButtons()
   'Testa se o atributo TitleBarEnable é True.
