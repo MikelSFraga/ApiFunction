@@ -1,17 +1,18 @@
 # ApiFunction Class V1.0.0
 	
-Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em __VBA do pacote Microsoft Office__, iniciou-se o desenvolvimeno desta Classe.
+Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em __VBA do pacote Microsoft Office__, iniciou-se o desenvolvimeno desta __Classe__.
 
 Seu objetivo é a unificação de várias rotinas que utilizam as __Funções dos Windows (API´s)__, através das quais é possível realizar alterações na estrutura dos __Formulários (Userform´s)__ que utilizamos na estrutura do __Visual Basic for Application (VBA)__.
 
-Esta Classe atenderá as diferentes ___Arquiteturas do Sistema Operacional Windows (32 bits e 64 bits)___, como também as ___Arquiteturas do Pacote Microsoft Office (VBA6 e VBA7)___.
+Esta __Classe__ atenderá as diferentes _Arquiteturas do Sistema Operacional Windows (32 bits e 64 bits)_, como também as _Arquiteturas do Pacote Microsoft Office (VBA6 e VBA7)_.
 
-Nesta versão atual do __ApiFunction (v1.0.0)__, são utilizadas as seguintes Funções/Api´s do Windows:
+### Funções Windows (API´s)
+
+Nesta versão atual do __ApiFunction (v1.0.0)__, são utilizadas as seguintes __Funções/Api´s do Windows_:
 
 - __FindWindow (user32.dll):__ The FindWindow function retrieves the handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows.
 
 - __GetWindowLong (user32.dll):__ The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory of a window.
-
 
 - __SetWindowLong (user32.dll):__ The SetWindowLong function changes an attribute of the specified window. The function also sets a 32-bit (long) value at the specified offset into the extra window memory of a window.
 
@@ -31,4 +32,95 @@ Nesta versão atual do __ApiFunction (v1.0.0)__, são utilizadas as seguintes Fu
 
 Caso tenham interesse em conhecer mais sobre as API´s do Windows, podem acessar o site [AllAPI.net](http://allapi.mentalis.org/index2.shtml) e acessar a [Lista de Api´s](http://allapi.mentalis.org/apilist/apilist.php).
 
-Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ para esta Classe, que irá funcionar como um framework, para realizar alterações na estrutura física do __Formulário (Userform)__.
+### Métodos e Propriedades Classe
+
+Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ para esta __Classe__, que irá funcionar como um ___Framework de Projetos VBA___, para realizar alterações na estrutura física do __Formulário (Userform)__. Seguem relação e descrição, de todos os recursos que a __Classe__ oferece.
+
+#### Propriedades
+
+##### FormStart
+
+
+```vb
+
+```
+
+##### ActivateButtons
+
+
+```vb
+
+```
+
+##### IconTitleBarForm
+
+
+```vb
+
+```
+
+##### OpacityPercent
+
+
+```vb
+
+```
+
+#### Métodos
+
+##### RemoveTitleBar
+
+
+```vb
+
+```
+
+##### HideCloseButton
+
+
+```vb
+
+```
+
+##### ActivateDualButtons
+
+
+```vb
+
+```
+
+
+##### ActivateMaximizeOnly
+
+
+```vb
+
+```
+
+
+##### ActivateMinimizeOnly
+
+
+```vb
+
+```
+
+
+##### ShowFormTaskBar
+
+
+```vb
+
+```
+
+
+##### ParentForms
+
+
+```vb
+
+```
+
+
+
+
