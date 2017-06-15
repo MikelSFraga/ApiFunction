@@ -8,27 +8,27 @@ Esta __Classe__ atenderá as diferentes _Arquiteturas do Sistema Operacional Win
 
 ### Funções Windows (API´s)
 
-Nesta versão atual do __ApiFunction (v1.0.0)__, são utilizadas as seguintes __Funções/Api´s do Windows_:
+Nesta versão atual do __ApiFunction (v1.0.0)__, são utilizadas as seguintes __Funções/Api´s do Windows__:
 
-- __FindWindow (user32.dll):__ The FindWindow function retrieves the handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows.
+- __FindWindow (user32.dll):__ A função FindWindow recupera o identificador da janela que possui o nome da classe e da janela  combinando com textos específicos. Esta função não pesquisa janelas dependentes.
 
-- __GetWindowLong (user32.dll):__ The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory of a window.
+- __GetWindowLong (user32.dll):__ A função GetWindowLong recupara informação sobre a janela especificada. A função também recupera valores 32-bit (long) específico de uma janela extra da memória de uma janela.
 
-- __SetWindowLong (user32.dll):__ The SetWindowLong function changes an attribute of the specified window. The function also sets a 32-bit (long) value at the specified offset into the extra window memory of a window.
+- __SetWindowLong (user32.dll):__ A função SetWindowLong modifica um atribudo da janela específica. A função também define  valores 32-bit (long) específico de uma janela extra da memória de uma janela.
 
-- __ShowWindow (user32.dll):__ The ShowWindow function sets the specified window’s show state.
+- __ShowWindow (user32.dll):__ A função ShowWindow define o status específico de exibição da janela.
 
-- __SetFocus (user32.dll):__ The SetFocus function sets the keyboard focus to the specified window. The window must be associated with the calling thread’s message queue.
+- __SetFocus (user32.dll):__ A função SetFocus define o foco do cursor para a janela especificada. A janela deveria estar associada com a fila de mensagens do threads de chamadas.
 
-- __DrawMenuBar (user32.dll):__ The DrawMenuBar function redraws the menu bar of the specified window. If the menu bar changes after Windows has created the window, this function must be called to draw the changed menu bar.
+- __DrawMenuBar (user32.dll):__ A função DrawMenuBar redesenha a barra de menu da janela especificada. Se a barra de menu for alterada apos o Windows ter creado a janela, esta função deveria ser chamado para desenhar as modificações do menu bar
 
-- __ExtractIcon (shell32.dll):__ The ExtractIcon function retrieves the handle of an icon from the specified executable file, dynamic-link library (DLL), or icon file.
+- __ExtractIcon (shell32.dll):__ A função ExtractIcon recupera o identificador de um ícone exetutado de um arquivo específicado,de uma biblioteca (DLL) ou de uma imagem do tipo ___ico___.
 
-- __SendMessage (user32.dll):__ The SendMessage function sends the specified message to a window or windows. The function calls the window procedure for the specified window and does not return until the window procedure has processed the message. The PostMessage function, in contrast, posts a message to a thread’s message queue and returns immediately.
+- __SendMessage (user32.dll):__ A função SendMessage envia a mensagem especificada para uma janela(s). A função chama o procedimento da janela para a janela especificada e não retorna até que o procedimento da janela tenha processado a mensagem. A função PostMessage, em contrapartida, posta uma mensagem para uma lista de mensagem em thread e retorna imediatamente.
 
-- __SetLayeredWindowAttributes (user32.dll):__ The SetLayeredWindowAttributes function sets the opacity and transparency color key of a layered window.
+- __SetLayeredWindowAttributes (user32.dll):__ A função SetLayeredWindowAttributes define a opacidade e cor chave de transparência de uma camada da janela.
 
-- __SetParent (user32.dll):__ The SetParent function changes the parent window of the specified child window.
+- __SetParent (user32.dll):__ A função SetParent altera a janela pai de uma janela filha especificada.
 
 Caso tenham interesse em conhecer mais sobre as API´s do Windows, podem acessar o site [AllAPI.net](http://allapi.mentalis.org/index2.shtml) e acessar a [Lista de Api´s](http://allapi.mentalis.org/apilist/apilist.php).
 
