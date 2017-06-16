@@ -34,12 +34,14 @@ Caso tenham interesse em conhecer mais sobre as API´s do Windows, podem acessar
 
 ### Métodos e Propriedades Classe
 
-Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ para esta __Classe__, que irá funcionar como um ___Framework de Projetos VBA___, para realizar alterações na estrutura física do __Formulário (Userform)__. Seguem relação e descrição, de todos os recursos que a __Classe__ oferece.
+Com base nas Funções acima, foram criados ___Propriedades___ e ___Métodos___ para esta __Classe__, que irá funcionar como um ___Framework de Projetos VBA___, para realizar alterações na estrutura física do __Formulário (Userform)__. Seguem relação e descrição, de todos os recursos que a __Classe__ oferece. 
+Ressaltando que os nomes das ___Propriedades___ e ___Métodos___ são em Inglês, para seguir o padrão da língua estrangeira, utilizada como base para a __Programação VBA__.
 
 #### Propriedades
 
 ##### FormStart
 
+Essa propriedade nos permite instanciar o ___Objeto da Classe___, definindo o __Formulário (Userform)__ que será manipulado/personalizado. Definindo essa propriedade, todas as demais já estarão direcionando seus resultados para o __Formulário (Userform)__ definido.
 
 __Exemplo:__
 ```vb
@@ -55,6 +57,10 @@ End Sub
 
 ##### ActivateButtons
 
+Essa propriedade permite que o desenvolvedor insira os botões de Maximizar e Minimizar, sejam individualmente ou ambos. Para isso, é necessário a selação de uma das seguintes opções:
+- __WS_FULLSIZING:__ ativa, de uma só vez, os dois botões (Maximizar e Minimizar);
+- __WS_MAXIMIZE:__ ativa somente o botão de Maximizar. O botão de Minimizar fica visível, mas desabilitado para uso;
+- __WS_MINIMIZE:__ ativa somente o botão de Minimizar. O botão de Maximizar fica visível, mas desabilitado para uso.
 
 __Exemplo:__
 ```vb
@@ -73,6 +79,7 @@ End Sub
 
 ##### IconTitleBarForm
 
+Através desta propriedade, é possível inserir um __Ícone na Barra de Título do Userform__. É preciso apenas informar o caminho onde o arquivo se encontra, para que possa ser passado para as rotinas da propriedade realizarem a transação da imagem para o userform.
 
 __Exemplo:__
 ```vb
@@ -91,6 +98,7 @@ End Sub
 
 ##### OpacityPercent
 
+Essa propriedade define o __Percentual de Opacidade__, ou seja, a ___Transparência que um Userform___ pode possuir. Geralmente esse é iniciado com __100%__, mas o desenvolvedor pode quere desenvolver um formulário com apenas __60% de Opacidade__. Basta apenas passar o valor da porcentagem desejada.
 
 __Exemplo:__
 ```vb
@@ -110,6 +118,7 @@ End Sub
 
 ##### RemoveTitleBar
 
+Esse método, quando chamado, remove a __Barra de Título do Userform__ definido, quando o __Objeto da Classe__ foi iniciado.
 
 __Exemplo:__
 ```vb
@@ -127,6 +136,7 @@ End Sub
 
 ##### HideCloseButton
 
+Esse método, quando chamado, oculta o __Botão Fechar da Barra de Título do Userform__ definido, quando o __Objeto da Classe__ foi iniciado.
 
 __Exemplo:__
 ```vb
@@ -144,6 +154,7 @@ End Sub
 
 ##### ActivateDualButtons
 
+Esse método, quando chamado, ativa os botões de __Maximizar e Minimizar na Barra de Título do Userform__ definido. Executa a mesma função que a ___Propriedade ActiveButtons___, mas não é preciso passar parâmetro para a execução.
 
 __Exemplo:__
 ```vb
@@ -163,6 +174,7 @@ End Sub
 
 ##### ActivateMaximizeOnly
 
+Esse método, quando chamado, ativa somente o botão de __Maximizar na Barra de Título do Userform__ definido. Executa a mesma função que a ___Propriedade ActiveButtons___, mas não é preciso passar parâmetro para a execução.
 
 __Exemplo:__
 ```vb
@@ -182,6 +194,7 @@ End Sub
 
 ##### ActivateMinimizeOnly
 
+Esse método, quando chamado, ativa somente o botão de __Minimizar na Barra de Título do Userform__ definido. Executa a mesma função que a ___Propriedade ActiveButtons___, mas não é preciso passar parâmetro para a execução.
 
 __Exemplo:__
 ```vb
@@ -201,6 +214,7 @@ End Sub
 
 ##### ShowFormTaskBar
 
+Esse método, quando chamado, extende o acesso ao __Userform para a Barra de Tarefas do Windows__. Desta forma, não se torna obrigatório o acesso a esse userform, unica e exclusivamente pelo __Applicativo Office__.
 
 __Exemplo:__
 ```vb
@@ -219,6 +233,7 @@ End Sub
 
 ##### ParentForms
 
+Esse método, quando chamado, define um segundo userform como um __Userform Pai__ do userform atual. Isso significa que o __Userform Filho__ fica limitado a área do __Userform Pai__.
 
 __Exemplo:__
 ```vb
@@ -227,8 +242,8 @@ Option Explicit
 Private Sub UserForm_Initialize()
   ' Declaração do objeto da classe.
   Dim objApi As New ApiFunction
-  ' Define o Userform para sub-objeto da classe.
-  Set objApi.FormStart = UserForm1
+  ' Instancia o novo objeto, a partir da classe.
+  Set objApi = New ApiFunction
   ' Define relação enre dos Userforms.
   objApi.ParentForms UserForm2.Caption, UserForm1.Caption
 End Sub
