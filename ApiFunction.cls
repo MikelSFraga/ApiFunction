@@ -9,6 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '-----------------------------------------------------------------------------------------
 ' Classe          : ApiFunction Class
+' Versão          : v1.0.0
 ' Data            : 16/05/2017
 ' Developer       : Mikel S Fraga
 ' Contato/GitHub  : https://github.com/MikelSFraga/ApiFunction
