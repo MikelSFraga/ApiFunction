@@ -1,4 +1,13 @@
-# ApiFunction Class V1.0.0
+# ApiFunction Class V1.0.1
+
+Alguns usuários detectaram problemas relacionados ao processo de importação da Classe, para suas máquinas.
+Através de algumas esquisas realizadas, foi detectado um erro de configuração do Git, onde o arquivo Cls (que assumem uma estrutura de arquivo texto), estava sendo gravado com caracteres bases do Sistema Operacional Linux, que é padrão no Git.
+
+Com a descoberta da origem do problema, foi possível realizar uma tratativa nos arquivos, através da alteração desse padrão do Linux, para o mesmo padrão utilizado pelo Windows.
+
+<hr>
+
+## ApiFunction Class V1.0.0
   
 Com o intuito de facilitar o desenvolvimento de ferramentas, utilizando o processo de programação em __VBA do pacote Microsoft Office__, iniciou-se o desenvolvimeno desta __Classe__.
 
