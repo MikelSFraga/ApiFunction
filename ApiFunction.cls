@@ -7,6 +7,15 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'-----------------------------------------------------------------------------------------
+' Classe          : ApiFunction Class
+' Versão          : v1.0.1
+' Data            : 16/06/2018
+' Developer       : Mikel S Fraga
+' Contato/GitHub  : https://github.com/MikelSFraga/ApiFunction
+' Descrição       : Desenvolvimento de funções que utilizam API´s do Windows,
+'                   para personalização de Userforms e outras funções diversas.
+'-----------------------------------------------------------------------------------------
 Option Explicit
 '=========================================================================================
 ' DECLARAÇÃO DAS FUNÇÕES DAS API´S DO WINDOWS PARA A CLASSE.
